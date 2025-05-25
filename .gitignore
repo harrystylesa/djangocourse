@@ -4,6 +4,6 @@
 *.bak
 *diff
 *.pyc
-djangocourse/__pycache__/
-app/__pycache__/
+djangocourse/__pycache__
+app/__pycache__
 
