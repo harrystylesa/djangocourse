@@ -1,12 +1,16 @@
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from app.models import Article
 from app.forms import CreateArticleForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
+
 def home(request):
     articles = Article.objects.all()
     return render(request, "app/home.html", {"articles": articles})
+
 
 def create_article(request):
     if request.method == "POST":
@@ -40,6 +44,10 @@ class ArticleCreateView(CreateView):
     fields = ["title", "status", "content", "twitter_post"]
     success_url = reverse_lazy("home")
 
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        form.instance.creator = self.request.user
+        return super().form_valid(form)
+
 
 class ArticleUpdateView(UpdateView):
     template_name = "app/article_update.html"
@@ -54,5 +62,3 @@ class ArticleDeleteView(DeleteView):
     model = Article
     success_url = reverse_lazy("home")
     context_object_name = "article"
-
-

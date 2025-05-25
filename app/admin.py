@@ -11,6 +11,5 @@ class ArticleAdmin(admin.ModelAdmin):
     readonly_fields = ("word_count", "created_at", "updated_at")
 
 
-
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(UserProfile)

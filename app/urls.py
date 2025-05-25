@@ -1,6 +1,12 @@
 from django.urls import path
+
 # from app.views import home, ArticleCreateView
-from app.views import ArticleListView, ArticleUpdateView, ArticleDeleteView, ArticleCreateView
+from app.views import (
+    ArticleListView,
+    ArticleUpdateView,
+    ArticleDeleteView,
+    ArticleCreateView,
+)
 
 urlpatterns = [
     # path("", home, name="home"),

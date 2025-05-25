@@ -1,4 +1,5 @@
 import re
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -13,6 +14,7 @@ ARTICLE_STATUS = (
 class UserProfile(AbstractUser):
     pass
 
+
 class Article(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField(blank=True, default="")
@@ -25,9 +27,11 @@ class Article(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="articles"
+    )
 
     def save(self, *args, **kwargs):
         text = re.sub(r"<[^>]*>", "", self.content).replace("&nbsp;", " ")
         self.word_count = len(re.findall(r"\b\w+\b", text))
         super().save(*args, **kwargs)
-
