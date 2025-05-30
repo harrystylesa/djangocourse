@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy
 
+from app.managers import UserProfileManager
 
 ARTICLE_STATUS = (
     ("draft", "draft"),
@@ -13,7 +14,22 @@ ARTICLE_STATUS = (
 
 
 class UserProfile(AbstractUser):
-    pass
+    email = models.EmailField(
+        gettext_lazy("email address"), max_length=255, unique=True
+    )
+
+    objects = UserProfileManager()
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
+
+    @property
+    def article_count(self):
+        return self.articles.count()
+
+    @property
+    def written_words(self):
+        return self.articles.aggregate(models.Sum("word_count"))["word_count__sum"] or 0
 
 
 class Article(models.Model):
@@ -24,7 +40,9 @@ class Article(models.Model):
     title = models.CharField(gettext_lazy("title"), max_length=100)
     content = models.TextField(gettext_lazy("content"), blank=True, default="")
     word_count = models.IntegerField(gettext_lazy("word count"), blank=True, default="")
-    twitter_post = models.TextField(gettext_lazy("twitter post"), blank=True, default="")
+    twitter_post = models.TextField(
+        gettext_lazy("twitter post"), blank=True, default=""
+    )
     status = models.CharField(
         gettext_lazy("status"),
         max_length=20,

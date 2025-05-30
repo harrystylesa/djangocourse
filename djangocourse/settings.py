@@ -38,6 +38,7 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
 ]
 
 THIRD_PARTY_APPS = [
@@ -143,8 +144,8 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'es'
-# LANGUAGE_CODE = "en-us"
+# LANGUAGE_CODE = 'es'
+LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
 
