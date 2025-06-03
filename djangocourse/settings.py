@@ -46,7 +46,9 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    "allauth.socialaccount.providers.github"
+    "allauth.socialaccount.providers.github",
+    "django_browser_reload",
+    "widget_tweaks",
 ]
 
 PROJECT_APPS = [
@@ -64,6 +66,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 if DEBUG:
@@ -102,9 +105,7 @@ WSGI_APPLICATION = "djangocourse.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600)
-}
+DATABASES = {"default": dj_database_url.config(conn_max_age=600)}
 
 
 # Customise user model
@@ -151,14 +152,13 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOCALE_PATHS = [
-    BASE_DIR / "locale"
-]
+LOCALE_PATHS = [BASE_DIR / "locale"]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
