@@ -45,3 +45,15 @@ textarea {
 textarea:focus {
   @apply ring-1 ring-emerald-500 border-emerald-500;
 }
+
+.error {
+  @apply p-2 my-2 text-sm text-red-700 bg-red-50 rounded-md border-red-300 border;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.form-field input {
+  @apply w-full rounded-md p-2;
+}
