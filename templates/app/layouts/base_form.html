@@ -1,37 +1,38 @@
-{% extends "app/base.html" %}
+{% extends "base.html" %}
 {% load widget_tweaks %}
 
-{% block content %}
+{% block base_content %}
 <main class="max-w-7xl mx-auto mt-10">
     <form method="POST">
-        {% csrf_token %}
-        <div class="mb-4">
-            {% render_field form.title class="text-4xl w-full rounded-md border-2 border-gray-200 focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Write a title for your article" %}
-        </div>
+        <form method="POST" x-data="{ articleStatus: '' }">
+            {% csrf_token %}
+            <div class="mb-4">
+                {% render_field form.title class="text-4xl w-full rounded-md border-2 border-gray-200 focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Write a title for your article" %}
+            </div>
 
-        <div class="flex gap-10 mb-10 items-center">
-            {% render_field form.status class="text-xs border-none rounded-sm uppercase" %}
-            {% block article_stats %}
+            <div class="flex gap-10 mb-10 items-center">
+                {% render_field form.status class="text-xs border-none rounded-sm uppercase" x-bind::class="`article-status-${articleStatus}`" x-model.fill="articleStatus" %}
+                {% block article_stats %}
 
 
-            {% endblock article_stats %}
-        </div>
+                {% endblock article_stats %}
+            </div>
 
-        <div class="mb-10">
-            {% render_field form.content rows=20 %}
-        </div>
+            <div class="mb-10">
+                {% render_field form.content rows=20 %}
+            </div>
 
-        <div class="mb-10">
-            <p class="text-xl font-semibold mb-2">{{ form.twitter_post.label }}</p>
-            {% render_field form.twitter_post rows=10 class="w-full" %}
-        </div>
+            <div class="mb-10">
+                <p class="text-xl font-semibold mb-2">{{ form.twitter_post.label }}</p>
+                {% render_field form.twitter_post rows=10 class="w-full" %}
+            </div>
 
-        {% block buttons %}
+            {% block buttons %}
 
-        {% endblock buttons %}
-    </form>
+            {% endblock buttons %}
+        </form>
 </main>
-{% endblock content %}
+{% endblock base_content %}
 
 {% block page_js %}
 <script>

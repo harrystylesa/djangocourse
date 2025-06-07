@@ -50,8 +50,37 @@ textarea:focus {
   @apply p-2 my-2 text-sm text-red-700 bg-red-50 rounded-md border-red-300 border;
 }
 
-details > summary::-webkit-details-marker {
+details>summary::-webkit-details-marker {
   display: none;
+}
+
+
+input[type="radio"] {
+  @apply text-emerald-600 ml-1 h-4 w-4 focus:ring-emerald-500;
+}
+
+.allauth-form input[type="email"] {
+  @apply w-full rounded-md text-black bg-white;
+}
+
+.allauth-form p:has(input[type="email"]) {
+  @apply text-left;
+}
+
+.allauth-form p:has(input[type="email"]) label {
+  @apply font-bold;
+}
+
+.article-status-draft {
+  @apply bg-gray-200;
+}
+
+.article-status-published {
+  @apply bg-green-200;
+}
+
+.article-status-inprogress {
+  @apply bg-amber-200;
 }
 
 .form-field input {

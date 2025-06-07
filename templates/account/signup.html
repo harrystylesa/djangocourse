@@ -1,10 +1,13 @@
-{% extends "app/base.html" %}
+{% extends "base.html" %}
 
 {% load allauth %}
 {% load widget_tweaks %}
 
+{% block head_title %}
+- Sign Up
+{% endblock head_title %}
 
-{% block content %}
+{% block base_content %}
 <main class="max-w-7xl mx-auto mt-10 lg:mt-20">
     <div class="flex flex-col items-center lg:flex-row lg:items-start space-y-6">
         <div class="basis-3/5 lg:mt-10">
@@ -81,4 +84,4 @@
         </div>
     </div>
 </main>
-{% endblock content %}
+{% endblock base_content %}
