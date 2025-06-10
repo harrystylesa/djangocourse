@@ -1,4 +1,5 @@
 from typing import Any
+import time
 from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
 from django.db.models.query import QuerySet
@@ -44,6 +45,7 @@ class ArticleListView(LoginRequiredMixin, ListView):
     paginate_by = 5
 
     def get_queryset(self) -> QuerySet[Any]:
+        time.sleep(0.5)
         search = self.request.GET.get("search")
         queryset = super().get_queryset().filter(creator=self.request.user)
         if search:
