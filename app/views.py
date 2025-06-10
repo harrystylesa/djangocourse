@@ -1,5 +1,6 @@
 from typing import Any
-
+from django.contrib import messages
+from django.http import HttpRequest, HttpResponse
 from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
@@ -40,9 +41,14 @@ class ArticleListView(LoginRequiredMixin, ListView):
     template_name = "app/home.html"
     model = Article
     context_object_name = "articles"
+    paginate_by = 5
 
     def get_queryset(self) -> QuerySet[Any]:
-        return Article.objects.filter(creator=self.request.user).order_by("-created_at")
+        search = self.request.GET.get("search")
+        queryset = super().get_queryset().filter(creator=self.request.user)
+        if search:
+            queryset = queryset.filter(title__search=search)
+        return queryset.order_by("-created_at")
 
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
@@ -75,3 +81,9 @@ class ArticleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self) -> bool | None:
         return self.request.user == self.get_object().creator
+
+    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        messages.success(
+            request, "Article deleted successfully.", extra_tags="destructive"
+        )
+        return super().post(request, *args, **kwargs)

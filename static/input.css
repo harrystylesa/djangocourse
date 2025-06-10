@@ -46,7 +46,7 @@ textarea:focus {
   @apply ring-1 ring-emerald-500 border-emerald-500;
 }
 
-.error {
+.error, .destructive  {
   @apply p-2 my-2 text-sm text-red-700 bg-red-50 rounded-md border-red-300 border;
 }
 
