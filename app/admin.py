@@ -31,7 +31,7 @@ class CustomUserAdmin(UserAdmin):
         ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
     add_fieldsets = (
-        (None, {"classes": ("wide",), "fields": ("email", "password1", "password2")}),
+        (None, {"classes": ("wide",), "fields": ("email", "password1")}),
     )
     list_display = ("email", "is_staff", "is_active")
     list_filter = ("is_staff", "is_active")

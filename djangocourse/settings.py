@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 import dj_database_url
 
@@ -46,6 +47,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
+    "anymail",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.github",
     "django_browser_reload",
@@ -131,6 +133,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DEFAULT_FROM_EMAIL = os.getenv("MAILGUN_EMAIL", "None")
+
+ANYMAIL = {
+    "MAILGUN_API_KEY": os.getenv("MAILGUN_API_KEY", "None"),
+    "SEND_DEFAULTS": {"tags": ["djangocourse"]},
+}
+
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "account_login"
 
@@ -139,7 +150,8 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_VERIFICATION = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/

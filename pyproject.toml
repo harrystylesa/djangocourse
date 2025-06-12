@@ -12,6 +12,7 @@ dependencies = [
     "django-allauth[socialaccount] (>=65.8.1,<66.0.0)",
     "psycopg (>=3.2.9,<4.0.0)",
     "dj-database-url (>=2.3.0,<3.0.0)",
+    "django-anymail[mailgun] (>=13.0,<14.0)",
 ]
 
 [tool.poetry]
